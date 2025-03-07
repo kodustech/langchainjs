@@ -4,8 +4,14 @@ import fs from "node:fs";
 import { Command } from "commander";
 import { rollup } from "@rollup/wasm-node";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { glob } from "glob";
 import { ExportsMapValue, ImportData, LangChainConfig } from "../types.js";
+import { hasTsupConfig } from "./utils.js";
+
+// For ES modules replacement for __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function asyncSpawn(command: string, args: string[]) {
   return new Promise<void>((resolve, reject) => {
@@ -26,6 +32,26 @@ async function asyncSpawn(command: string, args: string[]) {
       resolve();
     });
   });
+}
+
+/**
+ * Run tsup build process using the tsup.config.ts file for configuration
+ */
+async function runTsupBuild() {
+  console.log("🚀 Building with tsup...");
+  try {
+    // Run type checking first
+    await asyncSpawn("tsc", ["--noEmit"]);
+    
+    // Run tsup using the config file
+    await asyncSpawn("npx", ["tsup"]);
+    
+    console.log("✅ tsup build completed successfully");
+    return true;
+  } catch (error) {
+    console.error("❌ tsup build failed:", error);
+    return false;
+  }
 }
 
 const fsRmRfSafe = async (inputPath: string) => {
@@ -583,6 +609,7 @@ function processOptions(): {
   shouldCheckTreeShaking: boolean;
   shouldGenMaps: boolean;
   pre: boolean;
+  migrateBuild: boolean;
 } {
   const program = new Command();
   program
@@ -597,7 +624,11 @@ function processOptions(): {
     )
     .option("--tree-shaking", "Pass only if you want to check tree shaking")
     .option("--gen-maps")
-    .option("--pre");
+    .option("--pre")
+    .option(
+      "--migrate-build",
+      "Migrate the current package to the updated build process with tsup"
+    );
 
   program.parse();
 
@@ -607,12 +638,14 @@ function processOptions(): {
   const shouldCheckTreeShaking = options.treeShaking;
   const shouldGenMaps = options.genMaps;
   const { pre } = options;
+  const migrateBuild = options.migrateBuild;
 
   return {
     shouldCreateEntrypoints,
     shouldCheckTreeShaking,
     shouldGenMaps,
     pre,
+    migrateBuild,
   };
 }
 
@@ -691,13 +724,194 @@ export async function moveAndRename({
   }
 }
 
+/**
+ * Performs all necessary steps to migrate a package to the updated build process
+ */
+async function migrateBuildSystem() {
+  console.log('🔄 Starting build system migration...');
+  
+  try {
+    // Step 1: Initialize tsup configuration
+    await initializeTsupConfig();
+    
+    // Step 2: Update TypeScript in package.json to latest version
+    await updateTypeScriptVersion();
+    
+    // Step 3: Add build script hints to package.json if necessary
+    await updatePackageJsonBuildScripts();
+    
+    // Step 4: Handle tsconfig.cjs.json (no longer needed with tsup)
+    await handleTsConfigCjs();
+    
+    console.log('✅ Build system migration completed successfully');
+    console.log(`
+🚀 Next steps:
+1. Review the generated tsup.config.ts file and adjust it as needed
+2. Run your build to test the new configuration
+3. Update your CI/CD processes if necessary
+`);
+  } catch (error) {
+    console.error('❌ Failed to migrate build system:', error);
+  }
+}
+
+/**
+ * Handle the tsconfig.cjs.json file which is no longer needed with tsup
+ */
+async function handleTsConfigCjs() {
+  const tsConfigCjsPath = path.resolve(process.cwd(), 'tsconfig.cjs.json');
+  
+  if (fs.existsSync(tsConfigCjsPath)) {
+    console.log('🗑️ Handling tsconfig.cjs.json file (no longer needed with tsup)...');
+    
+    // Option 1: Rename it with a .bak extension for backup instead of deleting
+    const backupPath = `${tsConfigCjsPath}.bak`;
+    try {
+      await fs.promises.rename(tsConfigCjsPath, backupPath);
+      console.log(`✅ Renamed tsconfig.cjs.json to tsconfig.cjs.json.bak (backup)`);
+      console.log(`   You can delete this file once you've verified the build works correctly.`);
+    } catch (error) {
+      console.error('❌ Failed to handle tsconfig.cjs.json:', error);
+      throw error;
+    }
+    
+    // Note: We're not deleting the file to be cautious. Users can delete it 
+    // themselves once they've verified the new build process works correctly.
+  } else {
+    console.log('ℹ️ No tsconfig.cjs.json file found to backup');
+  }
+}
+
+/**
+ * Initialize a tsup configuration file in the current directory
+ */
+async function initializeTsupConfig() {
+  console.log('📄 Creating tsup configuration file...');
+  const targetPath = path.resolve(process.cwd(), 'tsup.config.ts');
+  
+  // Check if file already exists
+  if (fs.existsSync(targetPath)) {
+    console.log('⚠️ tsup.config.ts already exists, skipping creation');
+    return;
+  }
+  
+  try {
+    // Read the template file
+    const templatePath = path.resolve(__dirname, 'tsup.config.template.js');
+    const templateContent = await fs.promises.readFile(templatePath, 'utf8');
+    
+    // Write the template to the target path
+    await fs.promises.writeFile(targetPath, templateContent);
+    
+    console.log('✅ Successfully created tsup.config.ts');
+  } catch (error) {
+    console.error('❌ Failed to create tsup.config.ts:', error);
+    throw error;
+  }
+}
+
+/**
+ * Update TypeScript version in package.json to the latest
+ */
+async function updateTypeScriptVersion() {
+  console.log('📦 Updating TypeScript to the latest version...');
+  const packageJsonPath = path.resolve(process.cwd(), 'package.json');
+  
+  try {
+    // Read the package.json file
+    const packageJsonContent = await fs.promises.readFile(packageJsonPath, 'utf8');
+    const packageJson = JSON.parse(packageJsonContent);
+    
+    // Set the latest TypeScript version
+    const latestTsVersion = "5.4.5"; // Current latest as of March 2025
+    
+    let updated = false;
+    
+    // Update in dependencies
+    if (packageJson.dependencies && packageJson.dependencies.typescript) {
+      packageJson.dependencies.typescript = `^${latestTsVersion}`;
+      updated = true;
+    }
+    
+    // Update in devDependencies
+    if (packageJson.devDependencies && packageJson.devDependencies.typescript) {
+      packageJson.devDependencies.typescript = `^${latestTsVersion}`;
+      updated = true;
+    }
+    
+    if (!updated) {
+      console.log('⚠️ TypeScript dependency not found in package.json');
+    } else {
+      // Write the updated package.json
+      await fs.promises.writeFile(
+        packageJsonPath,
+        JSON.stringify(packageJson, null, 2) + '\n'
+      );
+      console.log(`✅ Updated TypeScript to version ^${latestTsVersion}`);
+    }
+  } catch (error) {
+    console.error('❌ Failed to update TypeScript version:', error);
+    throw error;
+  }
+}
+
+/**
+ * Update package.json build scripts to include type checking
+ */
+async function updatePackageJsonBuildScripts() {
+  console.log('🛠️ Updating build scripts in package.json...');
+  const packageJsonPath = path.resolve(process.cwd(), 'package.json');
+  
+  try {
+    // Read the package.json file
+    const packageJsonContent = await fs.promises.readFile(packageJsonPath, 'utf8');
+    const packageJson = JSON.parse(packageJsonContent);
+    
+    if (!packageJson.scripts) {
+      packageJson.scripts = {};
+    }
+    
+    // Update or add the type-check script
+    if (!packageJson.scripts['type-check']) {
+      packageJson.scripts['type-check'] = 'tsc --noEmit';
+      console.log('✅ Added type-check script');
+    }
+    
+    // Check if the build script is using the langchain-scripts build
+    const buildScript = packageJson.scripts.build || '';
+    if (buildScript.includes('@langchain/scripts build') || buildScript.includes('lc_build')) {
+      console.log('✅ Build script is already using @langchain/scripts');
+    } else {
+      console.log('⚠️ You may need to update your build script to use @langchain/scripts');
+      console.log('   Suggestion: "yarn clean && yarn type-check && yarn @langchain/scripts build"');
+    }
+    
+    // Write the updated package.json
+    await fs.promises.writeFile(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2) + '\n'
+    );
+    
+  } catch (error) {
+    console.error('❌ Failed to update package.json build scripts:', error);
+    throw error;
+  }
+}
+
 export async function buildWithTSup() {
   const {
     shouldCreateEntrypoints,
     shouldCheckTreeShaking,
     shouldGenMaps,
     pre,
+    migrateBuild,
   } = processOptions();
+
+  // Handle the migrate-build option
+  if (migrateBuild) {
+    await migrateBuildSystem();
+    return;
+  }
 
   let langchainConfigPath = path.resolve("langchain.config.js");
   if (process.platform === "win32") {
@@ -708,6 +922,15 @@ export async function buildWithTSup() {
   const { config }: { config: LangChainConfig } = await import(
     langchainConfigPath
   );
+
+  // Check if we should use tsup for building
+  const useTsup = hasTsupConfig();
+  
+  if (useTsup) {
+    console.log("📦 tsup configuration detected. Using tsup build process...");
+  } else {
+    console.log("📦 No tsup configuration detected. Using traditional build process...");
+  }
 
   // Clean & generate build files
   if (pre && shouldGenMaps) {
@@ -732,36 +955,45 @@ export async function buildWithTSup() {
   }
 
   if (shouldCreateEntrypoints) {
-    await Promise.all([
-      asyncSpawn("tsc", ["--outDir", "dist/"]),
-      asyncSpawn("tsc", ["--outDir", "dist-cjs/", "-p", "tsconfig.cjs.json"]),
-    ]);
-    await moveAndRename({
-      source: config.cjsSource,
-      dest: config.cjsDestination,
-      abs: config.abs,
-    });
-    // move CJS to dist
-    await Promise.all([
-      updatePackageJson(config),
-      fsRmRfSafe("dist-cjs").catch((e) => {
-        console.error("Error removing dist-cjs");
-        throw e;
-      }),
-      fsRmRfSafe("dist/tests").catch((e) => {
-        console.error("Error removing dist/tests");
-        throw e;
-      }),
-      (async () => {
-        // Required for cross-platform compatibility.
-        // Windows does not manage globs the same as Max/Linux when deleting directories.
-        const testFolders = await glob("dist/**/tests");
-        await Promise.all(testFolders.map((folder) => fsRmRfSafe(folder)));
-      })().catch((e) => {
-        console.error("Error removing dist/**/tests");
-        throw e;
-      }),
-    ]);
+    if (useTsup) {
+      // Use tsup for building
+      await runTsupBuild();
+      
+      // Update package.json and other files after tsup build
+      await updatePackageJson(config);
+    } else {
+      // Traditional build process with tsc
+      await Promise.all([
+        asyncSpawn("tsc", ["--outDir", "dist/"]),
+        asyncSpawn("tsc", ["--outDir", "dist-cjs/", "-p", "tsconfig.cjs.json"]),
+      ]);
+      await moveAndRename({
+        source: config.cjsSource,
+        dest: config.cjsDestination,
+        abs: config.abs,
+      });
+      // move CJS to dist
+      await Promise.all([
+        updatePackageJson(config),
+        fsRmRfSafe("dist-cjs").catch((e) => {
+          console.error("Error removing dist-cjs");
+          throw e;
+        }),
+        fsRmRfSafe("dist/tests").catch((e) => {
+          console.error("Error removing dist/tests");
+          throw e;
+        }),
+        (async () => {
+          // Required for cross-platform compatibility.
+          // Windows does not manage globs the same as Max/Linux when deleting directories.
+          const testFolders = await glob("dist/**/tests");
+          await Promise.all(testFolders.map((folder) => fsRmRfSafe(folder)));
+        })().catch((e) => {
+          console.error("Error removing dist/**/tests");
+          throw e;
+        }),
+      ]);
+    }
   }
 
   if (shouldCheckTreeShaking) {
