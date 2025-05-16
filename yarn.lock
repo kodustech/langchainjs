@@ -211,9 +211,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:>=0.14 <1, @anthropic-ai/sdk@npm:^0.37.0":
-  version: 0.37.0
-  resolution: "@anthropic-ai/sdk@npm:0.37.0"
+"@anthropic-ai/sdk@npm:>=0.14 <1, @anthropic-ai/sdk@npm:^0.39.0":
+  version: 0.39.0
+  resolution: "@anthropic-ai/sdk@npm:0.39.0"
   dependencies:
     "@types/node": ^18.11.18
     "@types/node-fetch": ^2.6.4
@@ -222,7 +222,7 @@ __metadata:
     form-data-encoder: 1.7.2
     formdata-node: ^4.3.2
     node-fetch: ^2.6.7
-  checksum: ce33d7bbccd56b2b724d9a9cac5f490a96c9c8f008736a6ccd5d66098b3347c8a7fe5fdd8e0b3b59a5c32b15fb56bb3b207987fee2af24fe2730a84992a1f6a1
+  checksum: 47f00c9d3ca2d497b25c688cdfd923474e2f16e774f67a3e2ef3f0c24cd80412687e3a2caee3024dd9a5d7a95e0717d85e3ffc9c4ba75ff6f1641d5820394a76
   languageName: node
   linkType: hard
 
@@ -6879,7 +6879,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@langchain/anthropic@workspace:libs/langchain-anthropic"
   dependencies:
-    "@anthropic-ai/sdk": ^0.37.0
+    "@anthropic-ai/sdk": ^0.39.0
     "@anthropic-ai/vertex-sdk": ^0.4.1
     "@jest/globals": ^29.5.0
     "@langchain/core": "workspace:*"
@@ -6906,7 +6906,7 @@ __metadata:
     zod: ^3.22.4
     zod-to-json-schema: ^3.22.4
   peerDependencies:
-    "@langchain/core": ">=0.2.21 <0.4.0"
+    "@langchain/core": ">=0.3.48 <0.4.0"
   languageName: unknown
   linkType: soft
 
@@ -6947,7 +6947,7 @@ __metadata:
     zod: ^3.22.4
     zod-to-json-schema: ^3.22.5
   peerDependencies:
-    "@langchain/core": ">=0.3.41 <0.4.0"
+    "@langchain/core": ">=0.3.48 <0.4.0"
   languageName: unknown
   linkType: soft
 
@@ -7355,7 +7355,7 @@ __metadata:
     jsdom: ^22.1.0
     jsonwebtoken: ^9.0.2
     langchain: ">=0.2.3 <0.3.0 || >=0.3.4 <0.4.0"
-    langsmith: ^0.3.16
+    langsmith: ^0.3.29
     llmonitor: ^0.5.9
     lodash: ^4.17.21
     lunary: ^0.7.10
@@ -7803,7 +7803,7 @@ __metadata:
     jest: ^29.5.0
     jest-environment-node: ^29.6.4
     js-tiktoken: ^1.0.12
-    langsmith: ^0.3.16
+    langsmith: ^0.3.29
     ml-matrix: ^6.10.4
     mustache: ^4.2.0
     p-queue: ^6.6.2
@@ -7927,7 +7927,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@langchain/google-common@^0.2.0, @langchain/google-common@^0.2.4, @langchain/google-common@workspace:*, @langchain/google-common@workspace:libs/langchain-google-common":
+"@langchain/google-common@^0.2.0, @langchain/google-common@^0.2.9, @langchain/google-common@workspace:*, @langchain/google-common@workspace:libs/langchain-google-common":
   version: 0.0.0-use.local
   resolution: "@langchain/google-common@workspace:libs/langchain-google-common"
   dependencies:
@@ -7958,17 +7958,17 @@ __metadata:
     zod: ^3.22.4
     zod-to-json-schema: ^3.22.4
   peerDependencies:
-    "@langchain/core": ">=0.2.21 <0.4.0"
+    "@langchain/core": ">=0.3.55 <0.4.0"
   languageName: unknown
   linkType: soft
 
-"@langchain/google-gauth@workspace:libs/langchain-google-gauth, @langchain/google-gauth@~0.2.4":
+"@langchain/google-gauth@^0.2.9, @langchain/google-gauth@workspace:libs/langchain-google-gauth":
   version: 0.0.0-use.local
   resolution: "@langchain/google-gauth@workspace:libs/langchain-google-gauth"
   dependencies:
     "@jest/globals": ^29.5.0
     "@langchain/core": "workspace:*"
-    "@langchain/google-common": ^0.2.4
+    "@langchain/google-common": ^0.2.9
     "@langchain/scripts": ">=0.1.0 <0.2.0"
     "@swc/core": ^1.3.90
     "@swc/jest": ^0.2.29
@@ -7993,7 +7993,7 @@ __metadata:
     typescript: <5.2.0
     zod: ^3.22.4
   peerDependencies:
-    "@langchain/core": ">=0.2.21 <0.4.0"
+    "@langchain/core": ">=0.3.55 <0.4.0"
   languageName: unknown
   linkType: soft
 
@@ -8031,7 +8031,7 @@ __metadata:
     zod: ^3.22.4
     zod-to-json-schema: ^3.22.4
   peerDependencies:
-    "@langchain/core": ">=0.3.17 <0.4.0"
+    "@langchain/core": ">=0.3.55 <0.4.0"
   languageName: unknown
   linkType: soft
 
@@ -8041,8 +8041,8 @@ __metadata:
   dependencies:
     "@jest/globals": ^29.5.0
     "@langchain/core": "workspace:*"
-    "@langchain/google-common": ^0.2.0
-    "@langchain/google-webauth": ~0.2.4
+    "@langchain/google-common": ^0.2.9
+    "@langchain/google-webauth": ^0.2.9
     "@langchain/scripts": ">=0.1.0 <0.2.0"
     "@langchain/standard-tests": 0.0.0
     "@swc/core": ^1.3.90
@@ -8067,7 +8067,7 @@ __metadata:
     typescript: <5.2.0
     zod: ^3.22.4
   peerDependencies:
-    "@langchain/core": ">=0.2.21 <0.4.0"
+    "@langchain/core": ">=0.3.55 <0.4.0"
   languageName: unknown
   linkType: soft
 
@@ -8078,7 +8078,7 @@ __metadata:
     "@jest/globals": ^29.5.0
     "@langchain/core": "workspace:*"
     "@langchain/google-common": ^0.2.0
-    "@langchain/google-gauth": ~0.2.4
+    "@langchain/google-gauth": ^0.2.9
     "@langchain/scripts": ">=0.1.0 <0.2.0"
     "@langchain/standard-tests": 0.0.0
     "@swc/core": ^1.3.90
@@ -8103,17 +8103,17 @@ __metadata:
     typescript: <5.2.0
     zod: ^3.22.4
   peerDependencies:
-    "@langchain/core": ">=0.2.21 <0.4.0"
+    "@langchain/core": ">=0.3.55 <0.4.0"
   languageName: unknown
   linkType: soft
 
-"@langchain/google-webauth@workspace:libs/langchain-google-webauth, @langchain/google-webauth@~0.2.4":
+"@langchain/google-webauth@^0.2.9, @langchain/google-webauth@workspace:libs/langchain-google-webauth":
   version: 0.0.0-use.local
   resolution: "@langchain/google-webauth@workspace:libs/langchain-google-webauth"
   dependencies:
     "@jest/globals": ^29.5.0
     "@langchain/core": "workspace:*"
-    "@langchain/google-common": ^0.2.4
+    "@langchain/google-common": ^0.2.9
     "@langchain/scripts": ">=0.1.0 <0.2.0"
     "@swc/core": ^1.3.90
     "@swc/jest": ^0.2.29
@@ -8317,6 +8317,7 @@ __metadata:
     prettier: ^2.8.3
     release-it: ^18.1.2
     rollup: ^4.5.2
+    testcontainers: ^10.25.0
     ts-jest: ^29.1.0
     typescript: <5.2.0
     uuid: ^10.0.0
@@ -8419,7 +8420,7 @@ __metadata:
     jest: ^29.5.0
     jest-environment-node: ^29.6.4
     js-tiktoken: ^1.0.12
-    openai: ^4.93.0
+    openai: ^4.96.0
     prettier: ^2.8.3
     release-it: ^18.1.2
     rimraf: ^5.0.1
@@ -8428,7 +8429,7 @@ __metadata:
     zod: ^3.22.4
     zod-to-json-schema: ^3.22.3
   peerDependencies:
-    "@langchain/core": ">=0.3.39 <0.4.0"
+    "@langchain/core": ">=0.3.48 <0.4.0"
   languageName: unknown
   linkType: soft
 
@@ -15248,46 +15249,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bare-events@npm:^2.0.0, bare-events@npm:^2.2.0":
-  version: 2.4.2
-  resolution: "bare-events@npm:2.4.2"
-  checksum: 6cd2b10dd32a3410787e120c091b6082fbc2df0c45ed723a7ae51d0e2f55d2a4037e1daff21dae90b671d36582f9f8d50df337875c281d10adb60df81b8cd861
+"bare-events@npm:^2.2.0, bare-events@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "bare-events@npm:2.5.4"
+  checksum: 522a5401caaede9d8c857c2fd346c993bf43995e958e8ebfa79d32b1e086032800e0639f3559d7ad85788fae54f6d9605685de507eec54298ea2aa2c8c9cb2c3
   languageName: node
   linkType: hard
 
-"bare-fs@npm:^2.1.1":
-  version: 2.3.1
-  resolution: "bare-fs@npm:2.3.1"
+"bare-fs@npm:^4.0.1":
+  version: 4.1.4
+  resolution: "bare-fs@npm:4.1.4"
   dependencies:
-    bare-events: ^2.0.0
-    bare-path: ^2.0.0
-    bare-stream: ^2.0.0
-  checksum: cc5ee2eece085e39f553e56bef156c1e68185fa96668a86d9ffb6e421d6f6aa28f98a96fa0266dc3398afd5efab180c933bd34a74a34eec9c8c90a0261102a7f
+    bare-events: ^2.5.4
+    bare-path: ^3.0.0
+    bare-stream: ^2.6.4
+  peerDependencies:
+    bare-buffer: "*"
+  peerDependenciesMeta:
+    bare-buffer:
+      optional: true
+  checksum: b0e83d3a10d74f56a3d82e50e7582d6775c14d36dd48e0ed01fab0ac5cc14387303408b6f5dc2a731ebc61fdeef4dd2147af4efd137734a01e61dab9e8ed7868
   languageName: node
   linkType: hard
 
-"bare-os@npm:^2.1.0":
-  version: 2.4.0
-  resolution: "bare-os@npm:2.4.0"
-  checksum: 1089d1f5ebc71674392ca8407a0823b21909f09cb99b46f1568c0f36effcb6a0b22a3ce7c333ea43e28dd28d76b05cf6aeb94273e45ae831de56cb80f266a53d
+"bare-os@npm:^3.0.1":
+  version: 3.6.1
+  resolution: "bare-os@npm:3.6.1"
+  checksum: 2fcdbaa631e02e2b7a4a38ded4586ae8bef2d329c6933b9dca8c543b4af0ac3c257fdf0ff3339b83259e179e07873f300e61c75c0a1e6b796c0214b1fbae8696
   languageName: node
   linkType: hard
 
-"bare-path@npm:^2.0.0, bare-path@npm:^2.1.0":
-  version: 2.1.3
-  resolution: "bare-path@npm:2.1.3"
+"bare-path@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "bare-path@npm:3.0.0"
   dependencies:
-    bare-os: ^2.1.0
-  checksum: 20301aeb05b735852a396515464908e51e896922c3bb353ef2a09ff54e81ced94e6ad857bb0a36d2ce659c42bd43dd5c3d5643edd8faaf910ee9950c4e137b88
+    bare-os: ^3.0.1
+  checksum: 51d559515f332f62cf9c37c38f2640c1b84b5e8c9de454b70baf029f806058cf94c51d6a0dfec0025cc7760f2069dc3e16c82f0d24f4a9ddb18c829bf9c0206d
   languageName: node
   linkType: hard
 
-"bare-stream@npm:^2.0.0":
-  version: 2.1.3
-  resolution: "bare-stream@npm:2.1.3"
+"bare-stream@npm:^2.6.4":
+  version: 2.6.5
+  resolution: "bare-stream@npm:2.6.5"
   dependencies:
-    streamx: ^2.18.0
-  checksum: d0c0a58de9d0d0bf0a66c71593f42b74fe3a41d13b63a65f9662a8fe11eda3b0166d9bedcb36e6dbbbfe67a70c8d2929db9c2f054b47e749bdc8a135c35fcb43
+    streamx: ^2.21.0
+  peerDependencies:
+    bare-buffer: "*"
+    bare-events: "*"
+  peerDependenciesMeta:
+    bare-buffer:
+      optional: true
+    bare-events:
+      optional: true
+  checksum: 6a3d4baf8ded0bdc465b7b0b65dfbb8e40f7520ee8899adcae5fd37949d5c520412164116659750ad841215b03ce761fe252a626cd4fe3ec9df0440c6fd07a96
   languageName: node
   linkType: hard
 
@@ -19005,9 +19019,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dockerode@npm:^4.0.4":
-  version: 4.0.5
-  resolution: "dockerode@npm:4.0.5"
+"dockerode@npm:^4.0.5":
+  version: 4.0.6
+  resolution: "dockerode@npm:4.0.6"
   dependencies:
     "@balena/dockerignore": ^1.0.2
     "@grpc/grpc-js": ^1.11.1
@@ -19016,7 +19030,7 @@ __metadata:
     protobufjs: ^7.3.2
     tar-fs: ~2.1.2
     uuid: ^10.0.0
-  checksum: 1e3086e31d9c56eec1153f531e9fe610e953635c464f3408d6da1a432e791178ecfe37b0a725191e220e9b9118f16b233f9e37c8dbeb99f9188b72a0f1fb5f04
+  checksum: bd27b515a64900c33f32b1ad0dee2e781685723ee80907fd6644788c605ccfdd9f55f4c0908db0002a8d980a02a341cef64910929ddd3cbc82faedf8b66d5e15
   languageName: node
   linkType: hard
 
@@ -20705,7 +20719,7 @@ __metadata:
     ioredis: ^5.3.2
     js-yaml: ^4.1.0
     langchain: "workspace:*"
-    langsmith: ^0.3.16
+    langsmith: ^0.3.29
     mariadb: ^3.4.0
     mem0ai: ^2.1.8
     mongodb: ^6.3.0
@@ -25631,7 +25645,7 @@ __metadata:
     js-tiktoken: ^1.0.12
     js-yaml: ^4.1.0
     jsonpointer: ^5.0.1
-    langsmith: ^0.3.16
+    langsmith: ^0.3.29
     openai: ^4.41.1
     openapi-types: ^12.1.3
     p-retry: 4
@@ -25723,9 +25737,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"langsmith@npm:^0.3.16":
-  version: 0.3.16
-  resolution: "langsmith@npm:0.3.16"
+"langsmith@npm:^0.3.29":
+  version: 0.3.29
+  resolution: "langsmith@npm:0.3.29"
   dependencies:
     "@types/uuid": ^10.0.0
     chalk: ^4.1.2
@@ -25739,7 +25753,7 @@ __metadata:
   peerDependenciesMeta:
     openai:
       optional: true
-  checksum: 64e9a53671cec3d7b29eba63d544a966c8a82c403e46ef490061e571d65087a6b2cfa899a75ec335bdd034a1f077dd27148c99f838cee89a2d5368078446b879
+  checksum: 5e714752d40bd90525436d2d977ed0e750031f946dbc6c5549a1d7ceb5546b48dfcc23a1fb1b758f18d954fe53e6089b7ca600c60f2f72d854aa24d5ff0a41fa
   languageName: node
   linkType: hard
 
@@ -28461,9 +28475,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:*, openai@npm:^4.32.1, openai@npm:^4.41.1, openai@npm:^4.93.0":
-  version: 4.93.0
-  resolution: "openai@npm:4.93.0"
+"openai@npm:*, openai@npm:^4.32.1, openai@npm:^4.41.1, openai@npm:^4.96.0":
+  version: 4.96.0
+  resolution: "openai@npm:4.96.0"
   dependencies:
     "@types/node": ^18.11.18
     "@types/node-fetch": ^2.6.4
@@ -28482,7 +28496,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 39fa6635475590c05c5fcb1fd07708c8f23d430dad36037c49fe25020ada0a4a36801e5c443669acd8f947d52005e3b7cf0215ca4b76262007f9b1ea3c916a68
+  checksum: d54ba62c4ad298ce3ea4ccc124f6fef0a81c2121ec830a363a1bec7ab909fa2a0e768c5decd738fe2db4f7fd0f5bbed8c8200debf52dd3ca4b9ba58aa1c11860
   languageName: node
   linkType: hard
 
@@ -30781,13 +30795,6 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: b676f8c040cdc5b12723ad2f91414d267605b26419d5c821ff03befa817ddd10e238d22b25d604920340fd73efd8ba795465a0377c4adf45a4a41e4234e42dc4
-  languageName: node
-  linkType: hard
-
-"queue-tick@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "queue-tick@npm:1.0.1"
-  checksum: 57c3292814b297f87f792fbeb99ce982813e4e54d7a8bdff65cf53d5c084113913289d4a48ec8bbc964927a74b847554f9f4579df43c969a6c8e0f026457ad01
   languageName: node
   linkType: hard
 
@@ -33255,18 +33262,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamx@npm:^2.15.0, streamx@npm:^2.18.0":
-  version: 2.18.0
-  resolution: "streamx@npm:2.18.0"
+"streamx@npm:^2.15.0, streamx@npm:^2.21.0":
+  version: 2.22.0
+  resolution: "streamx@npm:2.22.0"
   dependencies:
     bare-events: ^2.2.0
     fast-fifo: ^1.3.2
-    queue-tick: ^1.0.1
     text-decoder: ^1.1.0
   dependenciesMeta:
     bare-events:
       optional: true
-  checksum: 88193eb37ad194e18cf62a7d6392180a0565017d494e2c96ee09f1e7ff64c16cdf97059e39cab4b16972e812d08d744d1e3c5117f4213e8057c44ad3963f2461
+  checksum: 9b2772a084281129d402f298bddf8d5f3c09b6b3d9b5c93df942e886b0b963c742a89736415cc53ffb8fc1f6f5b0b3ea171ed0ba86f1b31cde6ed35db5e07f6d
   languageName: node
   linkType: hard
 
@@ -33747,12 +33753,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar-fs@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "tar-fs@npm:3.0.6"
+"tar-fs@npm:^3.0.6, tar-fs@npm:^3.0.7":
+  version: 3.0.8
+  resolution: "tar-fs@npm:3.0.8"
   dependencies:
-    bare-fs: ^2.1.1
-    bare-path: ^2.1.0
+    bare-fs: ^4.0.1
+    bare-path: ^3.0.0
     pump: ^3.0.0
     tar-stream: ^3.1.5
   dependenciesMeta:
@@ -33760,7 +33766,7 @@ __metadata:
       optional: true
     bare-path:
       optional: true
-  checksum: b4fa09c70f75caf05bf5cf87369cd2862f1ac5fb75c4ddf9d25d55999f7736a94b58ad679d384196cba837c5f5ff14086e060fafccef5474a16e2d3058ffa488
+  checksum: 5bebadd68e7a10cc3aa9c30b579c295e158cef7b1f42a73ee1bb1992925027aa8ef6cbcdb0d03e202e7f3850799391de30adf2585f7f240b606faa65df1a6b68
   languageName: node
   linkType: hard
 
@@ -33912,9 +33918,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"testcontainers@npm:^10.18.0, testcontainers@npm:^10.23.0":
-  version: 10.23.0
-  resolution: "testcontainers@npm:10.23.0"
+"testcontainers@npm:^10.18.0, testcontainers@npm:^10.23.0, testcontainers@npm:^10.25.0":
+  version: 10.25.0
+  resolution: "testcontainers@npm:10.25.0"
   dependencies:
     "@balena/dockerignore": ^1.0.2
     "@types/dockerode": ^3.3.35
@@ -33923,15 +33929,15 @@ __metadata:
     byline: ^5.0.0
     debug: ^4.3.5
     docker-compose: ^0.24.8
-    dockerode: ^4.0.4
+    dockerode: ^4.0.5
     get-port: ^7.1.0
     proper-lockfile: ^4.1.2
     properties-reader: ^2.3.0
     ssh-remote-port-forward: ^1.0.4
-    tar-fs: ^3.0.6
+    tar-fs: ^3.0.7
     tmp: ^0.2.3
     undici: ^5.28.5
-  checksum: 0d5bd57258d75b807121d07cc63bb24fc7f821ff51452a5d3cf6881939f5814d4c43669f601dd7bf7ea1fa72e04bf6f49809b618908097030384d11277e1bcde
+  checksum: 2f3bf2a92e20d849df14a8c86f1a64f302e168f7a3542e24d316a8f2573ed275546e43e712a69d6e1cdf9c1a49a9f9a7a1481ba208dea2d363c7b33ecc55fe8f
   languageName: node
   linkType: hard
 
